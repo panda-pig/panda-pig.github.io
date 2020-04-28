@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>解决Webstrom babel 自动编译问题</title>
+    <link href="/2020/04/28/2020-04-28/"/>
+    <url>/2020/04/28/2020-04-28/</url>
+    
+    <content type="html"><![CDATA[<p><img src="https://imgkr.cn-bj.ufileos.com/8e684a4a-0a35-4841-a05b-f54918605e5d.svg" srcset="/img/loading.gif" alt=""></p><p>这几天，我花了一段时间学习如何使 <em>babel 在 mac 版的Webstorm 中正常运行，如何自动编译 ES6 代码</em>，我认为这可能会对其他人有所帮助，蛮需要记录一下的，因为网上的坑实在太多了～</p><p><img src="https://imgkr.cn-bj.ufileos.com/b2dec325-0106-4014-846a-22a5e8e910e3.svg" srcset="/img/loading.gif" alt=""></p><h2 id="1-官方文档"><a href="#1-官方文档" class="headerlink" title="1 官方文档"></a>1 官方文档</h2><p><a href="https://babeljs.io/" target="_blank" rel="noopener">babel官网</a></p><h2 id="2-前期工作"><a href="#2-前期工作" class="headerlink" title="2 前期工作"></a>2 前期工作</h2><ul><li>Webstrom IDE</li><li><a href="https://nodejs.org/ja/" target="_blank" rel="noopener">node环境安装</a>（基本也很简单）</li><li>会使用终端，会使用npm（微笑脸）</li></ul><h2 id="3-我的步骤"><a href="#3-我的步骤" class="headerlink" title="3 我的步骤"></a>3 我的步骤</h2><h3 id="3-1-新建一个项目"><a href="#3-1-新建一个项目" class="headerlink" title="3.1 新建一个项目"></a>3.1 新建一个项目</h3><p>我的是命名为panda项目,然后新建一个panda.js，然后随便写一段 ES6 代码，如图：<br><img src="https://imgkr.cn-bj.ufileos.com/fb5d4a33-c77a-4cb6-8259-1ce5abd9d0cf.png" srcset="/img/loading.gif" alt=""></p><p><em>注：如果此处代码报红的同学，记得：</em></p><ul><li>选择左上角File 或 Webstrom(mac）</li><li>Setting 或 preferences(mac)</li><li>Language &amp; Frameworks</li><li>JavaScript</li><li>选择ECMA6</li><li>Apply</li><li>OK，<em>不报红～</em></li></ul><p><img src="https://imgkr.cn-bj.ufileos.com/fe50a03a-eee1-4a0d-8bbc-951cc07deea7.png" srcset="/img/loading.gif" alt=""></p><h3 id="3-2-新建package-json"><a href="#3-2-新建package-json" class="headerlink" title="3.2 新建package.json"></a>3.2 新建package.json</h3><ul><li>打开项目的终端</li><li>输入<em>npm init</em></li><li>然后一直回车</li></ul><p><img src="https://imgkr.cn-bj.ufileos.com/917f2d43-5268-4df7-973f-f7682c9bda09.png" srcset="/img/loading.gif" alt=""></p><p>可以看到package.json的内容，如图所示：<br><img src="https://imgkr.cn-bj.ufileos.com/6c25b0d2-3545-48d7-bd4f-df633191b78b.png" srcset="/img/loading.gif" alt=""></p><h3 id="3-3-安装"><a href="#3-3-安装" class="headerlink" title="3.3 安装"></a>3.3 安装</h3><p>在项目终端，输入如下代码：</p><pre><code class="hljs plain">npm install --save-dev babel-cli</code></pre><p>安装完之后package.json也<em>多了内容</em>：</p><p><img src="https://imgkr.cn-bj.ufileos.com/7f7ab118-7392-407b-a9d0-9a3a51206883.png" srcset="/img/loading.gif" alt=""></p><h3 id="3-4-添加File-Watchers"><a href="#3-4-添加File-Watchers" class="headerlink" title="3.4 添加File Watchers"></a>3.4 添加File Watchers</h3><p><strong><em>如图所示</em></strong></p><p><img src="https://imgkr.cn-bj.ufileos.com/e4f8c1ca-62cb-4016-a843-b82f6187a604.png" srcset="/img/loading.gif" alt=""></p><p><img src="https://imgkr.cn-bj.ufileos.com/3876f68c-df8d-43f9-bd71-add663863de2.png" srcset="/img/loading.gif" alt=""></p><p><img src="https://imgkr.cn-bj.ufileos.com/0cddf2d9-4613-4862-b8f0-62aeea21e661.png" srcset="/img/loading.gif" alt=""></p><h3 id="3-5-babelrc-的文件"><a href="#3-5-babelrc-的文件" class="headerlink" title="3.5  .babelrc 的文件"></a>3.5  .babelrc 的文件</h3><p>在工程根目录下，新建<em>名为.babelrc的文件</em></p><p>打开文件，把下面的配置贴进去，保存</p><pre><code class="hljs plain">&#123;  &quot;presets&quot;: [&quot;env&quot;]&#125;</code></pre><p><strong><em>截图所示</em></strong><br><img src="https://imgkr.cn-bj.ufileos.com/86ceffa8-298f-43cb-baae-8896bd0ca325.png" srcset="/img/loading.gif" alt=""></p><h3 id="3-6-安装"><a href="#3-6-安装" class="headerlink" title="3.6 安装"></a>3.6 安装</h3><p>在终端中输入：</p><pre><code class="hljs plain">npm install babel-preset-env --save-dev</code></pre><p>如图，在package.json又可以看到所对应内容：</p><p><img src="https://imgkr.cn-bj.ufileos.com/8a3b4bee-5bc3-45ee-97c2-a888f2b17a91.png" srcset="/img/loading.gif" alt=""></p><p>接着，在终端中继续输入：</p><pre><code class="hljs plain">npm install  babel-preset-es2015 --save-dev</code></pre><p>如图，又增加了内容：<br><img src="https://imgkr.cn-bj.ufileos.com/ea6872b1-75a5-4e15-86ad-1d66959531eb.png" srcset="/img/loading.gif" alt=""></p><h3 id="3-7-测试"><a href="#3-7-测试" class="headerlink" title="3.7 测试"></a>3.7 测试</h3><p>现在我们开始测试一下，把<em>panda.js</em>文件随便改点东西，然后<em>ctrl +s</em>保存，看看目录是不是多了个<em>dist文件夹</em>，看看里面是否有编译好的文件。</p><p>结果发现并没有生成dist文件，<em>(如果有生成dist文件的同学就不用看下一步)</em>,没有生成dist文件的这一步真的非常浪费了我巨多时间去排查…</p><p>后来发现，在Setting或preferences(mac)中,选择我们刚才加入的babel，双击之后，把Arguments中的<code>--presets</code>后面<em>加上</em><code>-es2015</code>,接着<em>删除</em>后面的<code>@babel/env</code>，然后保存，应用，再重新修改一下我们的panda.js，保存之后，就可以看到dist文件，还可以看到里面的编译文件。</p><p><img src="https://imgkr.cn-bj.ufileos.com/fa3b00ea-87e4-43a5-ba91-779eaec7c43b.png" srcset="/img/loading.gif" alt=""><br><img src="https://imgkr.cn-bj.ufileos.com/b6ca8b49-6d22-47b3-97c4-8a8a72163537.png" srcset="/img/loading.gif" alt=""><br><img src="https://imgkr.cn-bj.ufileos.com/c461fc41-bf4b-436f-9147-78299d65f2bf.png" srcset="/img/loading.gif" alt=""></p><h2 id="4-更多问题"><a href="#4-更多问题" class="headerlink" title="4. 更多问题"></a>4. 更多问题</h2><p>如果其他问题，欢迎一起探讨👏<br><img src="https://imgkr.cn-bj.ufileos.com/c7eeb15d-fc00-46e9-8bf4-fd2211fcbc03.svg" srcset="/img/loading.gif" alt=""></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Webstrom</category>
+      
+      <category>babel</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>编译</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>最新｜解决Mac安装软件的“已损坏，无法打开。 您应该将它移到废纸篓”问题</title>
     <link href="/2020/04/24/%E6%9C%80%E6%96%B0%EF%BD%9C%E8%A7%A3%E5%86%B3Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E7%9A%84%E2%80%9C%E5%B7%B2%E6%8D%9F%E5%9D%8F%EF%BC%8C%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80%E3%80%82%20%E6%82%A8%E5%BA%94%E8%AF%A5%E5%B0%86%E5%AE%83%E7%A7%BB%E5%88%B0%E5%BA%9F%E7%BA%B8%E7%AF%93%E2%80%9D%E9%97%AE%E9%A2%98/"/>
     <url>/2020/04/24/%E6%9C%80%E6%96%B0%EF%BD%9C%E8%A7%A3%E5%86%B3Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E7%9A%84%E2%80%9C%E5%B7%B2%E6%8D%9F%E5%9D%8F%EF%BC%8C%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80%E3%80%82%20%E6%82%A8%E5%BA%94%E8%AF%A5%E5%B0%86%E5%AE%83%E7%A7%BB%E5%88%B0%E5%BA%9F%E7%BA%B8%E7%AF%93%E2%80%9D%E9%97%AE%E9%A2%98/</url>
